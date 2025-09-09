@@ -1,10 +1,13 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
-], (Controller) => {
+    "com/lab2dev/ui/purchase/order/controller/BaseController",
+    "com/lab2dev/ui/purchase/order/model/models"
+], (BaseController, models) => {
     "use strict";
 
-    return Controller.extend("com.lab2dev.ui.purchase.order.controller.Orders", {
-        onInit() {
+    return BaseController.extend("com.lab2dev.ui.purchase.order.controller.Orders", {
+        async onInit() {
+            const { body } = await models.read({ sService: "/catalog", sPath: "/Orders", oOptions: {} });
+            this._setModel({ oModel: body.results, sModelName: "orders" });
         }
     });
 });

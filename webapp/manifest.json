@@ -17,12 +17,10 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/odata/v4/catalog/",
+        "uri": "/catalog/",
         "type": "OData",
         "settings": {
-          "annotations": [],
-          "localUri": "localService/mainService/metadata.xml",
-          "odataVersion": "4.0"
+          "odataVersion": "2.0"
         }
       }
     },
@@ -57,7 +55,7 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    "flexEnabled": false,
     "dependencies": {
       "minUI5Version": "1.140.0",
       "libs": {
@@ -76,10 +74,11 @@
           "bundleName": "com.lab2dev.ui.purchase.order.i18n.i18n"
         }
       },
-      "": {
+      "main": {
         "dataSource": "mainService",
         "preload": true,
         "settings": {
+          "synchronizationMode": "None",
           "operationMode": "Server",
           "autoExpandSelect": true,
           "earlyRequests": true

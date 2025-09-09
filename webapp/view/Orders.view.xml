@@ -1,6 +1,85 @@
-<mvc:View controllerName="com.lab2dev.ui.purchase.order.controller.Orders"
+<mvc:View
+    controllerName="com.lab2dev.ui.purchase.order.controller.Orders"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
-    </Page>
+    xmlns:core="sap.ui.core"
+    xmlns:p="sap.m.plugins"
+    xmlns="sap.m"
+>
+    <Table
+        id="idMessagesTable"
+        inset="false"
+        items="{
+			path: 'orders>/'
+		}"
+    >
+        <headerToolbar>
+            <OverflowToolbar>
+                <content>
+                    <Title
+                        text="{=  'Orders ' + ( !${orders>/length} ? '' : '(' + ${orders>/length} + ')' )}"
+                        level="H2"
+                    />
+                    <ToolbarSpacer />
+                </content>
+            </OverflowToolbar>
+        </headerToolbar>
+        <infoToolbar>
+            <OverflowToolbar>
+                <Label text="Managing Purchase Orders" />
+            </OverflowToolbar>
+        </infoToolbar>
+        <columns>
+            <Column demandPopin="true">
+                <Text text="CompanyCode" />
+            </Column>
+            <Column
+                minScreenWidth="Desktop"
+                demandPopin="true"
+                hAlign="End"
+            >
+                <Text text="Supplier" />
+            </Column>
+            <Column
+                minScreenWidth="Desktop"
+                demandPopin="true"
+                hAlign="Center"
+            >
+                <Text text="Currency" />
+            </Column>
+            <Column
+                hAlign="End"
+                demandPopin="true"
+                minScreenWidth="Desktop"
+            >
+                <Text text="NetAmount" />
+            </Column>
+            <Column
+                hAlign="End"
+                minScreenWidth="Desktop"
+                demandPopin="true"
+            >
+                <Text text="CreatedAtS4" />
+            </Column>
+            <Column
+                hAlign="End"
+                demandPopin="true"
+                minScreenWidth="Desktop"
+            >
+                <Text text="Status" />
+            </Column>
+        </columns>
+
+        <items>
+            <ColumnListItem vAlign="Middle">
+                <cells>
+                    <ObjectIdentifier text="{orders>CompanyCode}" />
+                    <Text text="{orders>Supplier}" />
+                    <Text text="{orders>Currency}" />
+                    <ObjectNumber number="{orders>NetAmount}" />
+                    <Text text="{orders>CreatedAtS4}" />
+                    <Text text="{orders>Status}" />
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
 </mvc:View>

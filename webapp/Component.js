@@ -1,6 +1,6 @@
 sap.ui.define([
     "sap/ui/core/UIComponent",
-    "com/lab2dev/ui/purchase/order/model/models"
+    "com/lab2dev/ui/purchase/order/model/models",
 ], (UIComponent, models) => {
     "use strict";
 
