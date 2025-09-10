@@ -1,85 +1,100 @@
 <mvc:View
-    controllerName="com.lab2dev.ui.purchase.order.controller.Orders"
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns:core="sap.ui.core"
-    xmlns:p="sap.m.plugins"
-    xmlns="sap.m"
+  controllerName="com.lab2dev.ui.purchase.order.controller.Orders"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
 >
+  <VBox width="100%">
     <Table
-        id="idMessagesTable"
-        inset="false"
-        items="{
-			path: 'orders>/'
-		}"
+      id="idOrdersTable"
+      mode="SingleSelectMaster"
+      inset="false"
+      items="{ path: 'orders>/' }"
     >
-        <headerToolbar>
-            <OverflowToolbar>
-                <content>
-                    <Title
-                        text="{=  'Orders ' + ( !${orders>/length} ? '' : '(' + ${orders>/length} + ')' )}"
-                        level="H2"
-                    />
-                    <ToolbarSpacer />
-                </content>
-            </OverflowToolbar>
-        </headerToolbar>
-        <infoToolbar>
-            <OverflowToolbar>
-                <Label text="Managing Purchase Orders" />
-            </OverflowToolbar>
-        </infoToolbar>
-        <columns>
-            <Column demandPopin="true">
-                <Text text="CompanyCode" />
-            </Column>
-            <Column
-                minScreenWidth="Desktop"
-                demandPopin="true"
-                hAlign="End"
-            >
-                <Text text="Supplier" />
-            </Column>
-            <Column
-                minScreenWidth="Desktop"
-                demandPopin="true"
-                hAlign="Center"
-            >
-                <Text text="Currency" />
-            </Column>
-            <Column
-                hAlign="End"
-                demandPopin="true"
-                minScreenWidth="Desktop"
-            >
-                <Text text="NetAmount" />
-            </Column>
-            <Column
-                hAlign="End"
-                minScreenWidth="Desktop"
-                demandPopin="true"
-            >
-                <Text text="CreatedAtS4" />
-            </Column>
-            <Column
-                hAlign="End"
-                demandPopin="true"
-                minScreenWidth="Desktop"
-            >
-                <Text text="Status" />
-            </Column>
-        </columns>
+      <headerToolbar>
+        <OverflowToolbar>
+          <Title level="H2" text="{= 'Orders' + (${ui>/count} ? ' (' + ${ui>/count} + ')' : '') }" />
+          <ToolbarSpacer />
+          <Button text="Add" type="Emphasized" press=".onAdd" />
+          <Button text="Edit" press=".onEdit" />
+          <Button text="Delete" type="Negative" press=".onDelete" />
+        </OverflowToolbar>
+      </headerToolbar>
 
-        <items>
-            <ColumnListItem vAlign="Middle">
-                <cells>
-                    <ObjectIdentifier text="{orders>CompanyCode}" />
-                    <Text text="{orders>Supplier}" />
-                    <Text text="{orders>Currency}" />
-                    <ObjectNumber number="{orders>NetAmount}" />
-                    <Text text="{orders>CreatedAtS4}" />
-                    <Text text="{orders>Status}" />
-                </cells>
-            </ColumnListItem>
-        </items>
+      <infoToolbar>
+        <OverflowToolbar>
+          <Label text="Purchase Orders Management" />
+        </OverflowToolbar>
+      </infoToolbar>
+
+      <columns>
+        <Column demandPopin="true">
+          <Text text="Company Code" />
+        </Column>
+        <Column minScreenWidth="Desktop" demandPopin="true" hAlign="End">
+          <Text text="Supplier" />
+        </Column>
+        <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
+          <Text text="Currency" />
+        </Column>
+        <Column hAlign="End" demandPopin="true" minScreenWidth="Desktop">
+          <Text text="Net Amount" />
+        </Column>
+        <Column hAlign="End" minScreenWidth="Desktop" demandPopin="true">
+          <Text text="Created At (S/4)" />
+        </Column>
+        <Column hAlign="End" demandPopin="true" minScreenWidth="Desktop">
+          <Text text="Status" />
+        </Column>
+      </columns>
+
+      <items>
+        <ColumnListItem vAlign="Middle">
+          <cells>
+            <ObjectIdentifier text="{orders>CompanyCode}" />
+            <Text text="{orders>Supplier}" />
+            <Text text="{orders>Currency}" />
+            <ObjectNumber number="{orders>NetAmount}" />
+            <Text text="{orders>CreatedAtS4}" />
+            <Text text="{orders>Status}" />
+          </cells>
+        </ColumnListItem>
+      </items>
     </Table>
+  </VBox>
+
+  <!-- Simple dialog for Create/Edit -->
+  <Dialog
+    id="orderDialog"
+    title="{= ${ui>/mode} === 'create' ? 'Create Order' : 'Edit Order' }"
+    contentWidth="30rem"
+    stretchOnPhone="true"
+  >
+    <VBox class="sapUiSmallMargin" renderType="Bare">
+      <Label text="Company Code"/>
+      <Input value="{draft>/CompanyCode}" />
+
+      <Label text="Supplier"/>
+      <Input value="{draft>/Supplier}" />
+
+      <Label text="Currency"/>
+      <Input value="{draft>/Currency}" />
+
+      <Label text="Net Amount"/>
+      <Input value="{draft>/NetAmount}" type="Number" />
+
+      <Label text="Created At (S/4)"/>
+      <Input value="{draft>/CreatedAtS4}" placeholder="YYYY-MM-DDTHH:mm:ss" />
+
+      <Label text="Status"/>
+      <Input value="{draft>/Status}" />
+    </VBox>
+
+    <beginButton>
+      <Button text="Save" type="Emphasized" press=".onSave"/>
+    </beginButton>
+    <endButton>
+      <Button text="Cancel" press=".onCancel"/>
+    </endButton>
+  </Dialog>
 </mvc:View>
